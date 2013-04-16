@@ -55,6 +55,14 @@ class ChosenHelper extends AppHelper
      */
     private $debug = false;
 
+
+    /**
+     * Call custom Javascript element
+     * 
+     * @var String
+     */
+    private $custom_element = null;
+
     public function __construct(View $view, $settings = array())
     {
         parent::__construct($view, $settings);
@@ -121,6 +129,11 @@ class ChosenHelper extends AppHelper
             $attributes['class'] .= " {$class}";
         }
 
+        if (isset($attributes['custom_element'])) {
+        	$this->custom_element = $attributes['custom_element'];
+        	unset($attributes['custom_element']);
+        }
+
         return $this->Form->select($name, $options, $attributes);
     }
 
@@ -153,6 +166,10 @@ class ChosenHelper extends AppHelper
                 $elm = 'jquery-script';
                 $script = 'chosen.jquery.%s';
             break;
+        }
+
+        if (!empty($this->custom_element)) {
+        	$elm = $this->custom_element;
         }
 
         // 3rd party assets.
