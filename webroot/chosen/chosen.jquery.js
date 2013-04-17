@@ -742,7 +742,6 @@ Copyright (c) 2011 by Harvest
       if (item.disabled) {
         html = '<li class="search-choice search-choice-disabled" id="' + choice_id + '"><span>' + item.html + '</span></li>';
       } else {
-        console.log(isFixed);
         if (isFixed < 0) {
           html = '<li class="search-choice" id="' + choice_id + '"><span>' + item.html + '</span></li>';
         } else {
