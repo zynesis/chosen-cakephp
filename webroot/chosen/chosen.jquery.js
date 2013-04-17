@@ -738,14 +738,14 @@ Copyright (c) 2011 by Harvest
       choice_id = this.container_id + "_c_" + item.array_index;
       this.choices += 1;
       itemClass = item.classes;
-      isFixed = itemClass.search('/fixed-option/');
+      isFixed = itemClass.search('fixed-option');
       if (item.disabled) {
         html = '<li class="search-choice search-choice-disabled" id="' + choice_id + '"><span>' + item.html + '</span></li>';
       } else {
         if (isFixed < 0) {
-          html = '<li class="search-choice" id="' + choice_id + '"><span>' + item.html + '</span></li>';
-        } else {
           html = '<li class="search-choice" id="' + choice_id + '"><span>' + item.html + '</span><a href="javascript:void(0)" class="search-choice-close" rel="' + item.array_index + '"></a></li>';
+        } else {
+          html = '<li class="search-choice" id="' + choice_id + '"><span>' + item.html + '</span></li>';
         }
       }
       this.search_container.before(html);
