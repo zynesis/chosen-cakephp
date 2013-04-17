@@ -134,7 +134,27 @@ class ChosenHelper extends AppHelper
         	unset($attributes['custom_element']);
         }
 
-        return $this->Form->select($name, $options, $attributes);
+        $fixed_options = null;
+        if (isset($attributes['fixed_options'])) {
+        	$fixed_options = $attributes['fixed_options'];
+        	unset($attributes['fixed_options']);
+        }
+
+        $results = $this->Form->select($name, $options, $attributes);
+
+        if (!is_null($fixed_options)) {
+        	if (is_array($fixed_options)) {
+        		foreach ($fixed_options as $key => $value) {
+        			if (isset($options[$key])) {
+        				$results = str_replace('<option value="' . $key . '">', '<option class="fixed-option" value="' . $key . '" selected>', $results);
+        			} else {
+        				$results = str_replace('</select>', '<option class="fixed-option" value="' . $key . '" selected>'. $value . '</option></select>', $results);
+        			}
+        		}
+        	}        	
+        }
+
+        return $results;
     }
 
     public function afterRender($viewFile)
