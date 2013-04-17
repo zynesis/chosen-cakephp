@@ -726,7 +726,7 @@ Copyright (c) 2011 by Harvest
     };
 
     Chosen.prototype.choice_build = function(item) {
-      var choice_id, html, link,
+      var choice_id, html, isFixed, itemClass, link,
         _this = this;
 
       if (this.is_multiple && this.max_selected_options <= this.choices) {
@@ -737,10 +737,17 @@ Copyright (c) 2011 by Harvest
       }
       choice_id = this.container_id + "_c_" + item.array_index;
       this.choices += 1;
+      itemClass = item.classes;
+      isFixed = itemClass.search('/fixed-option/');
       if (item.disabled) {
         html = '<li class="search-choice search-choice-disabled" id="' + choice_id + '"><span>' + item.html + '</span></li>';
       } else {
-        html = '<li class="search-choice" id="' + choice_id + '"><span>' + item.html + '</span><a href="javascript:void(0)" class="search-choice-close" rel="' + item.array_index + '"></a></li>';
+        console.log(isFixed);
+        if (isFixed < 0) {
+          html = '<li class="search-choice" id="' + choice_id + '"><span>' + item.html + '</span></li>';
+        } else {
+          html = '<li class="search-choice" id="' + choice_id + '"><span>' + item.html + '</span><a href="javascript:void(0)" class="search-choice-close" rel="' + item.array_index + '"></a></li>';
+        }
       }
       this.search_container.before(html);
       link = $('#' + choice_id).find("a").first();
