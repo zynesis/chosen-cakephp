@@ -1014,13 +1014,20 @@ Copyright (c) 2011 by Harvest
     };
 
     Chosen.prototype.select_append_option = function(options) {
-      var attributes, option;
-
+      var attributes, option, group = false;
+      if (options.group) {
+        group = options.group;
+        delete options.group;
+      }
       attributes = $.extend({}, options, {
         selected: 1
       });
       option = $('<option />', attributes);
-      this.form_field_jq.append(option);
+      if (!group) {
+        this.form_field_jq.append(option);
+      } else {
+        this.form_field_jq.find('optgroup[label=' + group + ']').append(option);
+      }
       return this.form_field_jq.trigger("liszt:updated");
     };
 
